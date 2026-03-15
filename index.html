@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Smart Fitness Tracker</title>
+<title>Flashcard Quiz App</title>
 
 <style>
 
 body{
 font-family:Arial;
-background:linear-gradient(135deg,#89f7fe,#66a6ff);
+background:#eef2f3;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -17,136 +17,148 @@ height:100vh;
 .container{
 background:white;
 padding:25px;
-width:380px;
-border-radius:12px;
+width:400px;
+border-radius:10px;
 text-align:center;
-box-shadow:0 8px 20px rgba(0,0,0,0.2);
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
 }
 
-.activity{
-display:flex;
-justify-content:space-between;
-align-items:center;
+img{
+width:220px;
+height:160px;
+object-fit:cover;
+border-radius:8px;
 margin:10px 0;
 }
 
-.activity img{
-width:40px;
-}
-
-input{
-width:70%;
-padding:8px;
-margin:5px;
-}
-
 button{
-padding:10px;
-margin-top:10px;
+padding:10px 15px;
+margin:6px;
 border:none;
-background:#28a745;
+background:#007bff;
 color:white;
-border-radius:6px;
+border-radius:5px;
 cursor:pointer;
 }
 
 button:hover{
-background:#1e7e34;
+background:#0056b3;
 }
 
-.progress{
-background:#ddd;
-border-radius:20px;
-height:20px;
-width:100%;
-margin-top:5px;
-}
-
-.bar{
-height:20px;
-border-radius:20px;
-width:0%;
-}
-
-#stepBar{
-background:#ff9800;
-}
-
-#calorieBar{
-background:#f44336;
-}
-
-#timeBar{
-background:#4CAF50;
-}
-
-.summary{
-margin-top:15px;
+#answer{
+color:green;
 font-weight:bold;
+font-size:18px;
 }
 
 </style>
-</head>
 
+</head>
 <body>
 
 <div class="container">
 
-<h2>🏃 Smart Fitness Tracker</h2>
+<h2>Flashcard Quiz App</h2>
 
-<div class="activity">
-<img src="https://cdn-icons-png.flaticon.com/512/684/684908.png">
-<input type="number" id="steps" placeholder="Steps">
-</div>
+<h3 id="question"></h3>
 
-<div class="progress">
-<div class="bar" id="stepBar"></div>
-</div>
+<img id="image">
 
-<div class="activity">
-<img src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png">
-<input type="number" id="calories" placeholder="Calories Burned">
-</div>
+<br>
 
-<div class="progress">
-<div class="bar" id="calorieBar"></div>
-</div>
+<button onclick="showAnswer()">Show Answer</button>
 
-<div class="activity">
-<img src="https://cdn-icons-png.flaticon.com/512/2964/2964514.png">
-<input type="number" id="time" placeholder="Workout Time (minutes)">
-</div>
+<p id="answer"></p>
 
-<div class="progress">
-<div class="bar" id="timeBar"></div>
-</div>
+<br>
 
-<button onclick="trackFitness()">Track Activity</button>
-
-<div class="summary" id="summary"></div>
+<button onclick="prevCard()">Previous</button>
+<button onclick="nextCard()">Next</button>
 
 </div>
 
 <script>
 
-function trackFitness(){
+let flashcards=[
 
-let steps=document.getElementById("steps").value;
-let calories=document.getElementById("calories").value;
-let time=document.getElementById("time").value;
+{
+question:"Which fruit is shown in the picture?",
+answer:"Apple",
+image:"https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg"
+},
 
-let stepPercent=(steps/10000)*100;
-let caloriePercent=(calories/500)*100;
-let timePercent=(time/60)*100;
+{
+question:"Which animal is this?",
+answer:"Cat",
+image:"https://upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg"
+},
 
-document.getElementById("stepBar").style.width=stepPercent+"%";
-document.getElementById("calorieBar").style.width=caloriePercent+"%";
-document.getElementById("timeBar").style.width=timePercent+"%";
+{
+question:"Which animal is this?",
+answer:"Dog",
+image:"https://upload.wikimedia.org/wikipedia/commons/6/6e/Golde33443.jpg"
+},
 
-document.getElementById("summary").innerText=
-"Today's Activity: "+steps+" steps | "+calories+" calories | "+time+" minutes workout";
+{
+question:"Which fruit is this?",
+answer:"Banana",
+image:"https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg"
+},
+
+{
+question:"Which animal is known as the king of the jungle?",
+answer:"Lion",
+image:"https://upload.wikimedia.org/wikipedia/commons/7/73/Lion_waiting_in_Namibia.jpg"
+}
+
+];
+
+let current=0;
+
+function showCard(){
+
+document.getElementById("question").innerText=
+flashcards[current].question;
+
+document.getElementById("image").src=
+flashcards[current].image;
+
+document.getElementById("answer").innerText="";
 
 }
+
+function showAnswer(){
+
+document.getElementById("answer").innerText=
+flashcards[current].answer;
+
+}
+
+function nextCard(){
+
+current++;
+
+if(current>=flashcards.length){
+current=0;
+}
+
+showCard();
+
+}
+
+function prevCard(){
+
+current--;
+
+if(current<0){
+current=flashcards.length-1;
+}
+
+showCard();
+
+}
+
+showCard();
 
 </script>
 
