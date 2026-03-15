@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Smart Fitness Tracker</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:linear-gradient(135deg,#89f7fe,#66a6ff);
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.container{
+background:white;
+padding:25px;
+width:380px;
+border-radius:12px;
+text-align:center;
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+
+.activity{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin:10px 0;
+}
+
+.activity img{
+width:40px;
+}
+
+input{
+width:70%;
+padding:8px;
+margin:5px;
+}
+
+button{
+padding:10px;
+margin-top:10px;
+border:none;
+background:#28a745;
+color:white;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:hover{
+background:#1e7e34;
+}
+
+.progress{
+background:#ddd;
+border-radius:20px;
+height:20px;
+width:100%;
+margin-top:5px;
+}
+
+.bar{
+height:20px;
+border-radius:20px;
+width:0%;
+}
+
+#stepBar{
+background:#ff9800;
+}
+
+#calorieBar{
+background:#f44336;
+}
+
+#timeBar{
+background:#4CAF50;
+}
+
+.summary{
+margin-top:15px;
+font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🏃 Smart Fitness Tracker</h2>
+
+<div class="activity">
+<img src="https://cdn-icons-png.flaticon.com/512/684/684908.png">
+<input type="number" id="steps" placeholder="Steps">
+</div>
+
+<div class="progress">
+<div class="bar" id="stepBar"></div>
+</div>
+
+<div class="activity">
+<img src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png">
+<input type="number" id="calories" placeholder="Calories Burned">
+</div>
+
+<div class="progress">
+<div class="bar" id="calorieBar"></div>
+</div>
+
+<div class="activity">
+<img src="https://cdn-icons-png.flaticon.com/512/2964/2964514.png">
+<input type="number" id="time" placeholder="Workout Time (minutes)">
+</div>
+
+<div class="progress">
+<div class="bar" id="timeBar"></div>
+</div>
+
+<button onclick="trackFitness()">Track Activity</button>
+
+<div class="summary" id="summary"></div>
+
+</div>
+
+<script>
+
+function trackFitness(){
+
+let steps=document.getElementById("steps").value;
+let calories=document.getElementById("calories").value;
+let time=document.getElementById("time").value;
+
+let stepPercent=(steps/10000)*100;
+let caloriePercent=(calories/500)*100;
+let timePercent=(time/60)*100;
+
+document.getElementById("stepBar").style.width=stepPercent+"%";
+document.getElementById("calorieBar").style.width=caloriePercent+"%";
+document.getElementById("timeBar").style.width=timePercent+"%";
+
+document.getElementById("summary").innerText=
+"Today's Activity: "+steps+" steps | "+calories+" calories | "+time+" minutes workout";
+
+}
+
+</script>
+
+</body>
+</html>
